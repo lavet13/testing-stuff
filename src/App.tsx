@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import ModalDialog from './modal-dialog';
 import DataFetcher from './data-fetcher';
@@ -18,6 +18,13 @@ import List from './list-not-need-an-effect';
 //   { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
 //   { category: "Vegetables", price: "$1", stocked: true, name: "Peas" }
 // ];
+
+// let didInit = false;
+
+// Check if we're running in the browser.
+if(typeof window === 'undefined') {
+  // ✅ Only runs once per app load
+}
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,6 +52,13 @@ function App() {
       { id: ++idRef.current, name: inputRef.current!.value },
     ]);
   }, []);
+
+  // useEffect(() => {
+  //   if(!didInit) {
+  //     didInit = true;
+  //
+  //   }
+  // }, []);
 
   return (
     <div
