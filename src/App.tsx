@@ -9,6 +9,8 @@ import { Todo, TodoList } from './todos';
 // import Accordion from './accordion';
 import { Chat } from './chat-room';
 import List from './list-not-need-an-effect';
+import Counter from './counter';
+import RequestTracker from './request-tracker';
 
 // const data = [
 //   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
@@ -113,6 +115,10 @@ function App() {
       <Chat />
 
       <List items={items} setItems={setItems} />
+
+      <Counter />
+
+      <RequestTracker />
     </div>
   );
 }

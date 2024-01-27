@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 type ToggleProps = {
+  isOn: boolean;
   onChange: (nextIsOn: boolean) => void;
 };
 
@@ -8,21 +9,22 @@ const getRandomArbitrary = (min: number, max: number) => {
   return Math.random() * (max - min) + min;
 };
 
-const Toggle = ({ onChange }) => {
-  const [isOn, setIsOn] = useState(false);
+// ✅ Also good: the component is fully controlled by its parent
+const Toggle = ({ isOn, onChange }) => {
+  // const [isOn, setIsOn] = useState(false);
 
   // 🔴 Avoid: The onChange handler runs too late
   // useEffect(() => {
   //   onChange(isOn);
   // }, [isOn, onChange]);
 
-  const updateToggle = (nextIsOn: boolean) => {
-    setIsOn(nextIsOn);
-    onChange(nextIsOn);
-  };
+  // const updateToggle = (nextIsOn: boolean) => {
+  //   setIsOn(nextIsOn);
+  //   onChange(nextIsOn);
+  // };
 
   const handleClick = () => {
-    updateToggle(!isOn);
+    onChange(!isOn);
   };
 
   const isCloserToRightEdge = () => {
@@ -31,9 +33,9 @@ const Toggle = ({ onChange }) => {
 
   const handleDragEnd = () => {
     if (isCloserToRightEdge()) {
-      updateToggle(true);
+      onChange(true);
     } else {
-      updateToggle(false);
+      onChange(false);
     }
   };
 };
