@@ -11,6 +11,8 @@ import { Chat } from './chat-room';
 import List from './list-not-need-an-effect';
 import Counter from './counter';
 import RequestTracker from './request-tracker';
+import useOnlineStatus from './use-online-status-hook';
+import TabContainer from './tabs';
 
 // const data = [
 //   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
@@ -24,11 +26,14 @@ import RequestTracker from './request-tracker';
 // let didInit = false;
 
 // Check if we're running in the browser.
-if(typeof window === 'undefined') {
+if (typeof window === 'undefined') {
   // ✅ Only runs once per app load
 }
 
 function App() {
+  const isOnline = useOnlineStatus();
+  console.log({ isOnline });
+
   const [isOpen, setIsOpen] = useState(false);
   const [person, setPerson] = useState('Alice');
   const [filter, setFilter] = useState('');
@@ -119,6 +124,8 @@ function App() {
       <Counter />
 
       <RequestTracker />
+
+      <TabContainer />
     </div>
   );
 }
