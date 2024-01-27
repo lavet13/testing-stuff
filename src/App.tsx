@@ -8,6 +8,7 @@ import DataFetcher from './data-fetcher';
 import { Todo, TodoList } from './todos';
 // import Accordion from './accordion';
 import { Chat } from './chat-room';
+import List from './list-not-need-an-effect';
 
 // const data = [
 //   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
@@ -26,6 +27,11 @@ function App() {
     { id: 1, name: 'homework' },
     { id: 2, name: 'watching dogshit TV' },
     { id: 3, name: 'cooking' },
+  ]);
+  const [items, setItems] = useState([
+    { id: 'item1', name: 'item 1' },
+    { id: 'item2', name: 'item 2' },
+    { id: 'item3', name: 'item 3' },
   ]);
   const idRef = useRef(4);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -91,6 +97,8 @@ function App() {
       {/* <FilterableProductTable products={data} /> */}
 
       <Chat />
+
+      <List items={items} setItems={setItems} />
     </div>
   );
 }
