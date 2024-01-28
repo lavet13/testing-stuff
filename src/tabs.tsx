@@ -40,27 +40,63 @@ const AboutTab = () => <p>Welcome to my profile!</p>;
 const PostsTab = memo(() => {
   console.log('[ARTIFICIALLLY SLOW] Rendering 500 <SlowPost />');
 
-  const obj: Iterable<number | undefined> = {
-    [Symbol.iterator]() {
-      let i = 0;
-      return {
-        next() {
-          i++;
-          if(i === 1500) return {done: true, value: i};
-          return { done: false, value: i};
-        },
-        return() {
-          return { value: undefined, done: true };
-        },
-      };
-    }
-  };
+  // const obj: Iterable<number | undefined> = {
+  //   [Symbol.iterator]() {
+  //     let i = 0;
+  //     return {
+  //       next() {
+  //         i++;
+  //         if(i === 1500) return {done: true, value: i};
+  //         return { done: false, value: i};
+  //       },
+  //       return() {
+  //         return { value: undefined, done: true };
+  //       },
+  //     };
+  //   }
+  // };
 
-  let items = Array.from(obj, (_, i) => (<SlowPost key={i} index={i} />))
+  // function* slowPosts() {
+  //   let i = 0;
+  //
+  //   while(i <= 500) {
+  //     yield ++i;
+  //   }
+  // }
+  //
+  // const it = slowPosts();
 
-  // let items = Array.from({ length: 500 }, (_, i) => (
-  //   <SlowPost key={i} index={i} />
-  // ));
+  // class MyIterator {
+  //   length: number;
+  //
+  //   constructor(data: number) {
+  //     this.length = data;
+  //   }
+  //
+  //   [Symbol.iterator]() {
+  //     let index = 0;
+  //
+  //     return {
+  //       next: () => {
+  //         index++;
+  //
+  //         if(index === this.length) return {value: index, done: true};
+  //
+  //         return {value: index, done: false};
+  //       },
+  //       return: () => {
+  //         return { value: undefined, done: true };
+  //       },
+  //     }
+  //   }
+  // }
+  // const it = new MyIterator(500);
+
+  // let items = Array.from(it, (_, i) => (<SlowPost key={i} index={i} />))
+
+  let items = Array.from({ length: 500 }, (_, i) => (
+    <SlowPost key={i} index={i} />
+  ));
 
   // for (let i = 0; i < 500; i++) {
   //   items.push(<SlowPost key={i} index={i} />);
