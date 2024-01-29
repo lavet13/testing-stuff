@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import ModalDialog from './modal-dialog';
 import DataFetcher from './data-fetcher';
 // import ClassComponent from './class-component';
-// import FunctionalComponent from './functional-component';
+import FunctionalComponent from './functional-component';
 // import { FilterableProductTable } from './products';
 import { Todo, TodoList } from './todos';
 // import Accordion from './accordion';
@@ -13,6 +13,8 @@ import Counter from './counter';
 import RequestTracker from './request-tracker';
 import useOnlineStatus from './use-online-status-hook';
 import TabContainer from './tabs';
+import TodosApp from './todos-app';
+import { useMouseCoords } from './use-mouse-coords-hook';
 
 // const data = [
 //   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
@@ -32,8 +34,7 @@ if (typeof window === 'undefined') {
 
 function App() {
   const isOnline = useOnlineStatus();
-  console.log({ isOnline });
-
+  const [openTodos, setOpenTodos] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [person, setPerson] = useState('Alice');
   const [filter, setFilter] = useState('');
@@ -102,7 +103,7 @@ function App() {
       {/* </ModalDialog> */}
 
       {/* <ClassComponent /> */}
-      {/* <FunctionalComponent /> */}
+      <FunctionalComponent originalList={["Ivan", "Pavel", "Sasha", "Lena"]} />
       {/* <Accordion /> */}
 
       <label>Filter: </label>
@@ -126,6 +127,14 @@ function App() {
       <RequestTracker />
 
       <TabContainer />
+
+      <h1>{isOnline ? '✅ Online' : '❌ Disconnected'}</h1>
+
+      <button onClick={() => setOpenTodos(open => !open)}>
+        {openTodos ? 'Close' : 'Open'}
+      </button>
+
+      {openTodos && <TodosApp />}
     </div>
   );
 }

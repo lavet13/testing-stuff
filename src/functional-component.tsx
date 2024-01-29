@@ -1,23 +1,22 @@
-import React, { FC, useMemo, useState } from "react";
+import { FC, useMemo, useState } from "react";
 
-const originalList = ["Ivan", "Pavel", "Sasha", "Lena"];
+type FunctionalComponentProps = {
+  originalList: string[];
+};
 
-const FunctionalComponent: FC = () => {
+const FunctionalComponent: FC<FunctionalComponentProps> = ({ originalList }) => {
   const [filter, setFilter] = useState("");
 
   const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(e.target.value);
   };
 
-  const fItems = useMemo(() => {
-    console.log("memo");
+  const fItems = useMemo(() => originalList.filter(item => {
+    const itemToFilter = item.toLowerCase().trim();
+    const searchValue = filter.toLowerCase().trim();
 
-    const res = originalList.filter((item) =>
-      item.toLowerCase().trim().includes(filter.toLowerCase().trim()),
-    );
-
-    return res;
-  }, [filter]);
+    return itemToFilter.includes(searchValue);
+  }), [filter, originalList]);
 
   return (
     <>

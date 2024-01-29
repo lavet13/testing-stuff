@@ -1,4 +1,4 @@
-import React, { memo, useState, useTransition, FC } from 'react';
+import { memo, useState, useTransition, FC } from 'react';
 import TabButton from './tab-button';
 
 const TabContainer = () => {
@@ -94,7 +94,7 @@ const PostsTab = memo(() => {
 
   // let items = Array.from(it, (_, i) => (<SlowPost key={i} index={i} />))
 
-  let items = Array.from({ length: 500 }, (_, i) => (
+  const items = Array.from({ length: 500 }, (_, i) => (
     <SlowPost key={i} index={i} />
   ));
 
@@ -114,7 +114,7 @@ type SlowPostProps = {
 };
 
 const SlowPost: FC<SlowPostProps> = ({ index }) => {
-  let startTime = performance.now();
+  const startTime = performance.now();
 
   while (performance.now() - startTime < 1) {
     // Do nothing for 1 ms per item to emulate extremely slow code

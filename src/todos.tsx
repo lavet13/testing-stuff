@@ -12,11 +12,11 @@ type TodoListProps = {
 };
 
 const getFilteredTodos = (todos: Todo[], filter: string) => {
-  console.log('[ARTIFICIALLY SLOW] Rendering <ShippingForm />');
-  const startTime = performance.now();
-  while (performance.now() - startTime < 200) {
-    // Do nothing for 500 ms to emulate extremely slow code
-  }
+  // console.log('[ARTIFICIALLY SLOW] Rendering <ShippingForm />');
+  // const startTime = performance.now();
+  // while (performance.now() - startTime < 200) {
+  //   // Do nothing for 500 ms to emulate extremely slow code
+  // }
 
   return todos.filter(({ name }) =>
     name.toLowerCase().trim().includes(filter.toLowerCase().trim()),
