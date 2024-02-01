@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 
-type Item = {
+export type Item = {
   id: string;
   name: string;
 };

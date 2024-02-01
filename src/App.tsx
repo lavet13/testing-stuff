@@ -2,19 +2,27 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import ModalDialog from './modal-dialog';
 import DataFetcher from './data-fetcher';
-// import ClassComponent from './class-component';
+import ClassComponent from './class-component';
 import FunctionalComponent from './functional-component';
-// import { FilterableProductTable } from './products';
+import { FilterableProductTable } from './products';
 import { Todo, TodoList } from './todos';
-// import Accordion from './accordion';
+import Accordion from './accordion';
 import { Chat } from './chat-room';
-import List from './list-not-need-an-effect';
+import List, { Item } from './list-not-need-an-effect';
 import Counter from './counter';
 import RequestTracker from './request-tracker';
 import useOnlineStatus from './use-online-status-hook';
 import TabContainer from './tabs';
 import TodosApp from './todos-app';
 import { useMouseCoords } from './use-mouse-coords-hook';
+import Form from './form';
+import FormPerson from './form-person';
+import TaskApp from './todos-use-state';
+import InitializerTodoList from './initializer-todos';
+import Poem from './poem';
+import { Contacts } from './contacts';
+import { ContextHeading } from './context-heading';
+import ImageGallery from './image-gallery';
 
 // const data = [
 //   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
@@ -33,33 +41,33 @@ if (typeof window === 'undefined') {
 }
 
 function App() {
-  const isOnline = useOnlineStatus();
-  const [openTodos, setOpenTodos] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [person, setPerson] = useState('Alice');
-  const [filter, setFilter] = useState('');
-  const [todos, setTodos] = useState<Todo[]>([
-    { id: 1, name: 'homework' },
-    { id: 2, name: 'watching dogshit TV' },
-    { id: 3, name: 'cooking' },
-  ]);
-  const [items, setItems] = useState([
-    { id: 'item1', name: 'item 1' },
-    { id: 'item2', name: 'item 2' },
-    { id: 'item3', name: 'item 3' },
-  ]);
-  const idRef = useRef(4);
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setFilter(e.target.value);
-
-  const handleAddTodo = useCallback(() => {
-    setTodos(todos => [
-      ...todos,
-      { id: ++idRef.current, name: inputRef.current!.value },
-    ]);
-  }, []);
+  // const isOnline = useOnlineStatus();
+  // const [openTodos, setOpenTodos] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
+  // const [person, setPerson] = useState('Alice');
+  // const [filter, setFilter] = useState('');
+  // const [todos, setTodos] = useState<Todo[]>([
+  //   { id: 1, name: 'homework' },
+  //   { id: 2, name: 'watching dogshit TV' },
+  //   { id: 3, name: 'cooking' },
+  // ]);
+  // const [items, setItems] = useState<Item[]>([
+  //   { id: 'item1', name: 'item 1' },
+  //   { id: 'item2', name: 'item 2' },
+  //   { id: 'item3', name: 'item 3' },
+  // ]);
+  // const idRef = useRef(4);
+  // const inputRef = useRef<HTMLInputElement | null>(null);
+  //
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  //   setFilter(e.target.value);
+  //
+  // const handleAddTodo = useCallback(() => {
+  //   setTodos(todos => [
+  //     ...todos,
+  //     { id: ++idRef.current, name: inputRef.current!.value },
+  //   ]);
+  // }, []);
 
   // useEffect(() => {
   //   if(!didInit) {
@@ -68,16 +76,16 @@ function App() {
   //   }
   // }, []);
 
+
+
   return (
     <div
       style={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        width: '100%',
+        margin: '0 auto',
       }}
     >
       {/* <select */}
@@ -103,38 +111,47 @@ function App() {
       {/* </ModalDialog> */}
 
       {/* <ClassComponent /> */}
-      <FunctionalComponent originalList={["Ivan", "Pavel", "Sasha", "Lena"]} />
+      {/* <FunctionalComponent originalList={["Ivan", "Pavel", "Sasha", "Lena"]} /> */}
       {/* <Accordion /> */}
 
-      <label>Filter: </label>
-      <input value={filter} onChange={handleChange} />
-
-      <TodoList
-        todos={todos}
-        filter={filter}
-        handleAddTodo={handleAddTodo}
-        ref={inputRef}
-      />
+      {/* <label>Filter: </label> */}
+      {/* <input value={filter} onChange={handleChange} /> */}
+      {/**/}
+      {/* <TodoList */}
+      {/*   todos={todos} */}
+      {/*   filter={filter} */}
+      {/*   handleAddTodo={handleAddTodo} */}
+      {/*   ref={inputRef} */}
+      {/* /> */}
 
       {/* <FilterableProductTable products={data} /> */}
 
-      <Chat />
+      {/* <Chat /> */}
+      {/**/}
+      {/* <List items={items} setItems={setItems} /> */}
+      {/**/}
+      {/* <Counter /> */}
+      {/**/}
+      {/* <RequestTracker /> */}
+      {/**/}
+      {/* <TabContainer /> */}
+      {/**/}
+      {/* <h1>{isOnline ? '✅ Online' : '❌ Disconnected'}</h1> */}
+      {/**/}
+      {/* <button onClick={() => setOpenTodos(open => !open)}> */}
+      {/*   {openTodos ? 'Close' : 'Open'} */}
+      {/* </button> */}
+      {/**/}
+      {/* {openTodos && <TodosApp />} */}
+      {/* <Form /> */}
+      {/* <FormPerson /> */}
 
-      <List items={items} setItems={setItems} />
-
-      <Counter />
-
-      <RequestTracker />
-
-      <TabContainer />
-
-      <h1>{isOnline ? '✅ Online' : '❌ Disconnected'}</h1>
-
-      <button onClick={() => setOpenTodos(open => !open)}>
-        {openTodos ? 'Close' : 'Open'}
-      </button>
-
-      {openTodos && <TodosApp />}
+      <TaskApp />
+      {/* <InitializerTodoList /> */}
+      {/* <Poem /> */}
+      <Contacts />
+      <ContextHeading />
+      <ImageGallery />
     </div>
   );
 }
