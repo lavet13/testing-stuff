@@ -70,9 +70,9 @@ export const Contacts: FC = () => {
     CONTACTS_INITIAL_STATE,
   );
 
-  const message = state.messages[state.selectedId];
   const selectedId = state.selectedId;
-  const contact = contacts.find(c => c.id === state.selectedId) as Contact;
+  const message = state.messages[selectedId];
+  const contact = contacts.find(c => c.id === selectedId) as Contact;
 
   return (
     <div>

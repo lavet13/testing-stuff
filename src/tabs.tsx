@@ -11,7 +11,7 @@ const TabContainer = () => {
     });
   }
 
-  const handleClick = (tab: string) => () => selectTab(tab);
+  const handleClick = (tab: string) => () => selectTab(tab); // currying the function
 
   return (
     <>

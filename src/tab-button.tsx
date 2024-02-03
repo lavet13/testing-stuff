@@ -14,9 +14,10 @@ const TabButton: FC<PropsWithChildren<TabButtonProps>> = ({
     return <b>{children}</b>;
   }
 
-  const handleClick = () => onClick();
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => onClick();
 
   return <button onClick={handleClick}>{children}</button>;
+
 };
 
 export default TabButton;
