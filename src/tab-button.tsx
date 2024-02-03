@@ -10,16 +10,12 @@ const TabButton: FC<PropsWithChildren<TabButtonProps>> = ({
   isActive,
   children,
 }) => {
-  const [isPending, startTransition] = useTransition();
-
   if (isActive) {
     return <b>{children}</b>;
   }
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    startTransition(() => {
-      onClick();
-    });
+    onClick();
   };
 
   return <button onClick={handleClick}>{children}</button>;

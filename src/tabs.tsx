@@ -1,4 +1,4 @@
-import { memo, useState, useTransition, FC, ReactNode } from 'react';
+import { memo, useState, useTransition, FC, ReactNode, Suspense } from 'react';
 import TabButton from './tab-button';
 
 const TabContainer = () => {
@@ -14,7 +14,7 @@ const TabContainer = () => {
   const handleClick = (tab: string) => () => setTab(tab); // currying the function
 
   return (
-    <>
+    <Suspense fallback={<h1>🌀 Loading...</h1>}>
       <TabButton isActive={tab === 'about'} onClick={handleClick('about')}>
         About
       </TabButton>
@@ -31,7 +31,7 @@ const TabContainer = () => {
       {tab === 'about' && <AboutTab />}
       {tab === 'posts' && <PostsTab />}
       {tab === 'contact' && <ContactTab />}
-    </>
+    </Suspense>
   );
 };
 
@@ -118,7 +118,7 @@ type SlowPostProps = {
 const SlowPost: FC<SlowPostProps> = ({ index }) => {
   const startTime = performance.now();
 
-  while (performance.now() - startTime < 3) {
+  while (performance.now() - startTime < 1) {
     // Do nothing for 1 ms per item to emulate extremely slow code
   }
 
