@@ -134,7 +134,7 @@ function App() {
       {/**/}
       {/* <RequestTracker /> */}
       {/**/}
-      {/* <TabContainer /> */}
+      <TabContainer />
       {/**/}
       {/* <h1>{isOnline ? '✅ Online' : '❌ Disconnected'}</h1> */}
       {/**/}

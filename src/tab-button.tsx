@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC, PropsWithChildren, useTransition } from 'react';
 
 type TabButtonProps = {
   onClick: () => void;
@@ -10,14 +10,19 @@ const TabButton: FC<PropsWithChildren<TabButtonProps>> = ({
   isActive,
   children,
 }) => {
+  const [isPending, startTransition] = useTransition();
+
   if (isActive) {
     return <b>{children}</b>;
   }
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => onClick();
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    startTransition(() => {
+      onClick();
+    });
+  };
 
   return <button onClick={handleClick}>{children}</button>;
-
 };
 
 export default TabButton;

@@ -1,17 +1,17 @@
-import { memo, useState, useTransition, FC } from 'react';
+import { memo, useState, useTransition, FC, ReactNode } from 'react';
 import TabButton from './tab-button';
 
 const TabContainer = () => {
-  const [isPending, startTransition] = useTransition();
+  // const [isPending, startTransition] = useTransition();
   const [tab, setTab] = useState('about');
 
-  function selectTab(nextTab: string) {
-    startTransition(() => {
-      setTab(nextTab);
-    });
-  }
+  // function selectTab(nextTab: string) {
+  //   startTransition(() => {
+  //     setTab(nextTab);
+  //   });
+  // }
 
-  const handleClick = (tab: string) => () => selectTab(tab); // currying the function
+  const handleClick = (tab: string) => () => setTab(tab); // currying the function
 
   return (
     <>
@@ -94,17 +94,19 @@ const PostsTab = memo(() => {
 
   // let items = Array.from(it, (_, i) => (<SlowPost key={i} index={i} />))
 
-  const items = Array.from({ length: 500 }, (_, i) => (
-    <SlowPost key={i} index={i} />
-  ));
+  // const items = Array.from({ length: 500 }, (_, i) => (
+  //   <SlowPost key={i} index={i} />
+  // ));
 
-  // for (let i = 0; i < 500; i++) {
-  //   items.push(<SlowPost key={i} index={i} />);
-  // }
+  let items: ReactNode[] = [];
+
+  for (let i = 0; i < 500; i++) {
+    items.push(<SlowPost key={i} index={i} />);
+  }
 
   return (
     <ul className='items'>
-      {items.slice(0, 10)}
+      {items}
     </ul>
   );
 });
@@ -116,7 +118,7 @@ type SlowPostProps = {
 const SlowPost: FC<SlowPostProps> = ({ index }) => {
   const startTime = performance.now();
 
-  while (performance.now() - startTime < 1) {
+  while (performance.now() - startTime < 3) {
     // Do nothing for 1 ms per item to emulate extremely slow code
   }
 
