@@ -23,6 +23,19 @@ import Poem from './poem';
 import { Contacts } from './contacts';
 import { ContextHeading } from './context-heading';
 import ImageGallery from './image-gallery';
+import { SuspenseRouter } from './suspense-router';
+import AddCommentContainer from './error-boundary-transition';
+import { Artist } from './suspense-albums';
+import { SearchBox } from './suspense-search-query';
+import { DeferredTodos } from './deferred-todos';
+import MovingDot from './moving-dot';
+import FeedbackForm from './hotel-feedback';
+import Menu from './travel-snack';
+import TravelPlan from './travel-plan';
+import Packing from './packing-list';
+import MailClient from './letters';
+import LettersMultiSelection from './letters-multiselection';
+import PreservingCounter from './preserving-resetting-state-counter';
 
 // const data = [
 //   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
@@ -77,7 +90,6 @@ function App() {
   // }, []);
 
 
-
   return (
     <div
       style={{
@@ -111,7 +123,7 @@ function App() {
       {/* </ModalDialog> */}
 
       {/* <ClassComponent /> */}
-      {/* <FunctionalComponent originalList={["Ivan", "Pavel", "Sasha", "Lena"]} /> */}
+      <FunctionalComponent originalList={["Ivan", "Pavel", "Sasha", "Lena"]} />
       {/* <Accordion /> */}
 
       {/* <label>Filter: </label> */}
@@ -123,6 +135,9 @@ function App() {
       {/*   handleAddTodo={handleAddTodo} */}
       {/*   ref={inputRef} */}
       {/* /> */}
+      <DeferredTodos />
+      <FeedbackForm />
+      {/* <MovingDot /> */}
 
       {/* <FilterableProductTable products={data} /> */}
 
@@ -134,7 +149,6 @@ function App() {
       {/**/}
       {/* <RequestTracker /> */}
       {/**/}
-      <TabContainer />
       {/**/}
       {/* <h1>{isOnline ? '✅ Online' : '❌ Disconnected'}</h1> */}
       {/**/}
@@ -146,9 +160,19 @@ function App() {
       {/* <Form /> */}
       {/* <FormPerson /> */}
 
+      <PreservingCounter />
+      <LettersMultiSelection />
+      {/* <MailClient /> */}
+      <Packing />
+      <TravelPlan />
+      <Menu />
+      <TabContainer />
       <TaskApp />
       {/* <InitializerTodoList /> */}
       {/* <Poem /> */}
+      <Artist />
+      <SuspenseRouter />
+      <SearchBox />
       <Contacts />
       <ContextHeading />
       <ImageGallery />

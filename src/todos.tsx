@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { memo, useDeferredValue, useMemo, useState } from 'react';
 
 export type Todo = {
   id: number;
@@ -12,18 +12,18 @@ type TodoListProps = {
 };
 
 const getFilteredTodos = (todos: Todo[], filter: string) => {
-  // console.log('[ARTIFICIALLY SLOW] Rendering <ShippingForm />');
-  // const startTime = performance.now();
-  // while (performance.now() - startTime < 200) {
-  //   // Do nothing for 500 ms to emulate extremely slow code
-  // }
+  console.log('[ARTIFICIALLY SLOW] Rendering <ShippingForm />');
+  const startTime = performance.now();
+  while (performance.now() - startTime < 200) {
+    // Do nothing for 500 ms to emulate extremely slow code
+  }
 
   return todos.filter(({ name }) =>
     name.toLowerCase().trim().includes(filter.toLowerCase().trim()),
   );
 };
 
-export const TodoList = React.forwardRef<HTMLInputElement, TodoListProps>(
+export const TodoList = memo(React.forwardRef<HTMLInputElement, TodoListProps>(
   ({ filter, todos, handleAddTodo }, ref) => {
     const [test, setText] = useState('');
 
@@ -55,4 +55,4 @@ export const TodoList = React.forwardRef<HTMLInputElement, TodoListProps>(
       </>
     );
   },
-);
+));
