@@ -36,6 +36,7 @@ import Packing from './packing-list';
 import MailClient from './letters';
 import LettersMultiSelection from './letters-multiselection';
 import PreservingCounter from './preserving-resetting-state-counter';
+import FileSystem from './file-system';
 
 // const data = [
 //   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
@@ -123,7 +124,7 @@ function App() {
       {/* </ModalDialog> */}
 
       {/* <ClassComponent /> */}
-      <FunctionalComponent originalList={["Ivan", "Pavel", "Sasha", "Lena"]} />
+      {/* <FunctionalComponent originalList={["Ivan", "Pavel", "Sasha", "Lena"]} /> */}
       {/* <Accordion /> */}
 
       {/* <label>Filter: </label> */}
@@ -135,8 +136,8 @@ function App() {
       {/*   handleAddTodo={handleAddTodo} */}
       {/*   ref={inputRef} */}
       {/* /> */}
-      <DeferredTodos />
-      <FeedbackForm />
+      {/* <DeferredTodos /> */}
+      {/* <FeedbackForm /> */}
       {/* <MovingDot /> */}
 
       {/* <FilterableProductTable products={data} /> */}
@@ -160,22 +161,23 @@ function App() {
       {/* <Form /> */}
       {/* <FormPerson /> */}
 
-      <PreservingCounter />
-      <LettersMultiSelection />
+      {/* <PreservingCounter /> */}
+      {/* <LettersMultiSelection /> */}
       {/* <MailClient /> */}
-      <Packing />
-      <TravelPlan />
-      <Menu />
-      <TabContainer />
-      <TaskApp />
+      {/* <Packing /> */}
+      {/* <TravelPlan /> */}
+      {/* <Menu /> */}
+      {/* <TabContainer /> */}
+      {/* <TaskApp /> */}
       {/* <InitializerTodoList /> */}
       {/* <Poem /> */}
-      <Artist />
-      <SuspenseRouter />
-      <SearchBox />
-      <Contacts />
-      <ContextHeading />
-      <ImageGallery />
+      {/* <Artist /> */}
+      {/* <SuspenseRouter /> */}
+      {/* <SearchBox /> */}
+      {/* <Contacts /> */}
+      {/* <ContextHeading /> */}
+      {/* <ImageGallery /> */}
+      <FileSystem />
     </div>
   );
 }
