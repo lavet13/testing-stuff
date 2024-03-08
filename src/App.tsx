@@ -36,7 +36,7 @@ import Packing from './packing-list';
 import MailClient from './letters';
 import LettersMultiSelection from './letters-multiselection';
 import PreservingCounter from './preserving-resetting-state-counter';
-import FileSystem from './file-system';
+import FileSystem, { FileSystemProvider } from './file-system';
 
 // const data = [
 //   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
@@ -89,7 +89,6 @@ function App() {
   //
   //   }
   // }, []);
-
 
   return (
     <div
@@ -177,7 +176,9 @@ function App() {
       {/* <Contacts /> */}
       {/* <ContextHeading /> */}
       {/* <ImageGallery /> */}
-      <FileSystem />
+      <FileSystemProvider>
+        <FileSystem />
+      </FileSystemProvider>
     </div>
   );
 }

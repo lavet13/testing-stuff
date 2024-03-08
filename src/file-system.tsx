@@ -1,4 +1,12 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import {
+  FC,
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 type Tree = {
   [key: number]: {
@@ -23,20 +31,31 @@ const initialState: Tree = {
   length: 1,
 };
 
-const FileSystem: FC = () => {
+type FileSystemContextDefaultValue = {
+  tree: Tree;
+  parentId: number;
+  childIds: number[];
+  handleDelete: (parentId: number, childId: number) => void;
+  handleAdd: (childId: number, name: string) => void;
+  handleEdit: (childId: number, name: string) => void;
+};
+
+const FileSystemContext = createContext<FileSystemContextDefaultValue>({
+  tree: {},
+  parentId: 0,
+  childIds: [],
+  handleDelete: () => {},
+  handleAdd: () => {},
+  handleEdit: () => {},
+});
+
+const useFileSystemContext = () => useContext(FileSystemContext);
+
+export const FileSystemProvider: FC<PropsWithChildren> = ({ children }) => {
   const [tree, setTree] = useState(initialState);
   const parentId = 0;
   const root = tree[parentId];
   const childIds = root.childIds;
-  console.log({ tree });
-
-  const [isAdding, setIsAdding] = useState(false);
-  const [name, setName] = useState('');
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, [isAdding]);
 
   const handleDelete = (parentId: number, childId: number) => {
     const parent = tree[parentId];
@@ -89,6 +108,28 @@ const FileSystem: FC = () => {
       [childId]: nextChild,
     });
   };
+
+  const value = { tree, parentId, childIds, handleAdd, handleDelete, handleEdit };
+
+  return (
+    <FileSystemContext.Provider value={value}>
+      {children}
+    </FileSystemContext.Provider>
+  );
+};
+
+const FileSystem: FC = () => {
+  const { tree, parentId, childIds, handleAdd } = useFileSystemContext();
+  console.log({ tree });
+
+  const [isAdding, setIsAdding] = useState(false);
+  const [name, setName] = useState('');
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [isAdding]);
+
 
   let content: React.ReactNode;
 
@@ -165,10 +206,6 @@ const FileSystem: FC = () => {
             key={id}
             id={id}
             parentId={parentId}
-            tree={tree}
-            onAdd={handleAdd}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
           />
         ))}
       </ul>
@@ -179,18 +216,20 @@ const FileSystem: FC = () => {
 type FileTreeProps = {
   id: number;
   parentId: number;
-  tree: Tree;
-  onAdd: (childId: number, name: string) => void;
-  onEdit: (childId: number, name: string) => void;
-  onDelete: (parentId: number, childId: number) => void;
 };
 
-const FileTree: FC<FileTreeProps> = ({ id, parentId, tree, onAdd, onEdit, onDelete }) => {
+const FileTree: FC<FileTreeProps> = ({
+  id,
+  parentId,
+}) => {
+  const { tree, handleAdd, handleDelete, handleEdit } = useFileSystemContext();
+
   const child = tree[id];
   const childIds = child.childIds;
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState('');
+
   let content: React.ReactNode;
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -206,14 +245,14 @@ const FileTree: FC<FileTreeProps> = ({ id, parentId, tree, onAdd, onEdit, onDele
     setName('');
 
     if (name.length === 0) return;
-    onEdit(id, name);
+    handleEdit(id, name);
   };
 
   const handleAddSave = () => {
     setName('');
 
     if (name.length === 0) return;
-    onAdd(id, name);
+    handleAdd(id, name);
   };
 
   if (isEditing) {
@@ -291,7 +330,12 @@ const FileTree: FC<FileTreeProps> = ({ id, parentId, tree, onAdd, onEdit, onDele
     content = (
       <div style={{ display: 'flex', gap: '0.5rem' }}>
         <span
-          style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', alignSelf: 'stretch' }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            cursor: 'pointer',
+            alignSelf: 'stretch',
+          }}
           onClick={() => {
             setIsEditing(true);
             setName(child.name);
@@ -309,7 +353,7 @@ const FileTree: FC<FileTreeProps> = ({ id, parentId, tree, onAdd, onEdit, onDele
         <button tabIndex={id} onClick={() => setIsAdding(true)}>
           Add
         </button>
-        <button tabIndex={id} onClick={() => onDelete(parentId, id)}>
+        <button tabIndex={id} onClick={() => handleDelete(parentId, id)}>
           Delete
         </button>
       </div>
@@ -332,10 +376,6 @@ const FileTree: FC<FileTreeProps> = ({ id, parentId, tree, onAdd, onEdit, onDele
             key={childId}
             id={childId}
             parentId={id}
-            tree={tree}
-            onAdd={onAdd}
-            onEdit={onEdit}
-            onDelete={onDelete}
           />
         ))}
       </ul>
