@@ -17,6 +17,7 @@ const contacts: Contact[] = [
 enum CONTACTS_ACTION_TYPES {
   SET_SELECT_ID = 'SET_SELECT_ID',
   SET_MESSAGE = 'SET_MESSAGE',
+  RESET_CHAT = 'RESET_CHAT',
 }
 
 const CONTACTS_INITIAL_STATE: {
@@ -53,10 +54,20 @@ function contactsReducer(draft: ContactsInitialState, action: ContactsAction) {
       break;
 
     case CONTACTS_ACTION_TYPES.SET_MESSAGE:
-      const contactId = draft.selectedId;
-      const message = payload;
+      {
+        const contactId = draft.selectedId;
+        const message = payload;
 
-      draft.messages[contactId] = message;
+        draft.messages[contactId] = message;
+      }
+      break;
+
+    case CONTACTS_ACTION_TYPES.RESET_CHAT:
+      {
+        const contactId = draft.selectedId;
+
+        draft.messages[contactId] = '';
+      }
       break;
 
     default:
@@ -124,10 +135,14 @@ const Chat: FC<ChatProps> = ({ message, contact, dispatch }) => {
     dispatch(createAction(CONTACTS_ACTION_TYPES.SET_MESSAGE, e.target.value));
   };
 
+  const resetChat = () => {
+    dispatch(createAction(CONTACTS_ACTION_TYPES.RESET_CHAT, null));
+  };
+
   const handleSend = () => {
     if (message.length !== 0) {
       alert('Sended!');
-      dispatch(createAction(CONTACTS_ACTION_TYPES.SET_MESSAGE, ''));
+      resetChat();
     }
   };
 

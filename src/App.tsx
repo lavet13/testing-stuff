@@ -37,6 +37,9 @@ import MailClient from './letters';
 import LettersMultiSelection from './letters-multiselection';
 import PreservingCounter from './preserving-resetting-state-counter';
 import FileSystem, { FileSystemProvider } from './file-system';
+import Reverse from './reverse';
+import ResetDetailForm from './reset-detail-form';
+import Gallery from './clear-image-gallery';
 
 // const data = [
 //   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
@@ -176,9 +179,13 @@ function App() {
       {/* <Contacts /> */}
       {/* <ContextHeading /> */}
       {/* <ImageGallery /> */}
-      <FileSystemProvider>
-        <FileSystem />
-      </FileSystemProvider>
+      {/* <FileSystemProvider> */}
+      {/*   <FileSystem /> */}
+      {/* </FileSystemProvider> */}
+      {/* <Contacts /> */}
+      {/* <Reverse /> */}
+      {/* <ResetDetailForm /> */}
+      <Gallery />
     </div>
   );
 }
